@@ -1,12 +1,12 @@
 FROM python:3.8
 
-WORKDIR /app/API/api_times
+WORKDIR /hc-team-composition/API/api_times
 
-COPY requirements.txt /app/API/api_times/
+COPY requirements.txt /hc-team-composition/API/api_times/
 
 RUN pip install -r requirements.txt
 
-COPY /app /app
+COPY /hc-team-composition /hc-team-composition
 
 ENV DEBUG=True
 ENV SECRET_KEY=mysecretkey
