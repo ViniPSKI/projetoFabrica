@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'api_times.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dbtime04',
+        'USER': 'adm',
+        'PASSWORD': '6GAL0rGkAfl680Adl7QquPlQdEBDUOdd',
+        'HOST': 'a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
 
