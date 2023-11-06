@@ -1,0 +1,8 @@
+services:
+  - name: web
+    build:
+      image: python:3.8
+    start_command: python manage.py runserver 0.0.0.0:8000
+    env:
+      - key: DJANGO_SETTINGS_MODULE
+        value: myapp.settings
