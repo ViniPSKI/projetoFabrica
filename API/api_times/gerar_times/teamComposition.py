@@ -3,9 +3,6 @@ import pandas as pd
 from tabulate import tabulate as tb
 from gerar_times.models import Aluno
 
-#!!!!!!!!!!!! Anotação pessoal, sempre ativar o ambiente virtual do python /home/vinicius/hc-team-composition/source myenv/bin/activate
-#E também desativar quando sair deactivate
-
 def gerar_time(tamanho):
 
     dados = Aluno.objects.all()
