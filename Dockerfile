@@ -6,7 +6,7 @@ COPY requirements.txt /API/api_times/
 
 RUN pip install -r requirements.txt
 
-COPY /API /API
+COPY /API/api_times/ /API/api_times/
 
 ENV DEBUG=True
 ENV SECRET_KEY=mysecretkey
