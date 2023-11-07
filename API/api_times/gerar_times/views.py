@@ -13,12 +13,12 @@ def gerar_time_api(request, tamanho):
             time = gerar_time(int(tamanho))
 
             timeGerado = [{
-                'Nome': aluno.Nome,
-                'RA': aluno.RA,
-                'Area_de_atuacao': aluno.Area_de_atuacao,
-                'Nivel_de_senioridade': aluno.Nivel_de_senioridade,
-                'Linguagem_Afinidade': aluno.Linguagem_Afinidade
-            } for aluno in time]
+                'Nome': Aluno.Nome,
+                'RA': Aluno.RA,
+                'Area_de_atuacao': Aluno.Area_de_atuacao,
+                'Nivel_de_senioridade': Aluno.Nivel_de_senioridade,
+                'Linguagem_Afinidade': Aluno.Linguagem_Afinidade
+            } for Aluno in time]
 
             response_data = {'time': timeGerado}
 
@@ -29,7 +29,7 @@ def gerar_time_api(request, tamanho):
         return JsonResponse({'error': str(e)}, status=500)
     
 @csrf_exempt
-def salvar_dados_aluno(request):
+def salvar_dados_Aluno(request):
 
     try:
 
@@ -59,7 +59,7 @@ def salvar_dados_aluno(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 @csrf_exempt   
-def salvar_dados_professor(request):
+def salvar_dados_Professor(request):
 
     try:
 
@@ -87,15 +87,15 @@ def salvar_dados_professor(request):
         return JsonResponse({'error': str(e)}, status=500)
     
 @csrf_exempt
-def listar_alunos(request):
+def listar_Alunos(request):
     try:
         
         if request.method == 'GET':
 
-            alunos = Aluno.objects.all()
+            Alunos = Aluno.objects.all()
 
             #Transforma em uma lista de dicionários
-            reponse_data = list(alunos.values())
+            reponse_data = list(Alunos.values())
             
             #safe=False para corrigir o erro 'Object of type QuerySet is not JSON serializable'
             return JsonResponse(reponse_data, safe=False)
