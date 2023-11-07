@@ -153,29 +153,3 @@ def selecionar_melhor_time(time_inicial, times_expandidos):
 
     return melhor_time
 
-time_inicial = gerar_time(5)
-melhor_solucao = time_inicial
-melhor_indice = avaliar_balanceamento([melhor_solucao])[0]
-
-for i in range(1, 10):
-
-    print(f"Iteração {i}")  
-    times_expandidos = expandir_vizinhanca(melhor_solucao)
-    melhor_time = selecionar_melhor_time(melhor_solucao, times_expandidos)
-    novo_indice = avaliar_balanceamento([melhor_time])[0]
-
-    if novo_indice > melhor_indice:
-
-        melhor_solucao = melhor_time
-        melhor_indice = novo_indice
-        print(f"Melhor solução encontrada: {tb(melhor_solucao, headers=['Nome', 'Área', 'Nível', 'Linguagem'])}")
-        print(f"Valor de avaliação da melhor solução: {melhor_indice}")
-        
-    else:
-
-        print("Nenhuma melhoria encontrada")
-
-print("Melhor solução global encontrada:")
-melhor_solucao_data = [(m.Nome, m.Area_de_atuacao, m.Nivel_de_senioridade, m.Linguagem_Afinidade) for m in melhor_solucao]
-print(tb(melhor_solucao_data, headers=['Nome', 'Área', 'Nível', 'Linguagem']))
-print(f"Valor de avaliação da melhor solução: {melhor_indice}")
