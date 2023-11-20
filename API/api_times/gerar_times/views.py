@@ -62,17 +62,17 @@ def salvar_dados_Aluno(request):
 def salvar_dados_Professor(request):
 
     try:
-
         if request.method == 'POST':
 
             data = json.loads(request.body)
 
-            dados = Professor(Nome=data['nome'], 
-            Senha=data['senha'], 
-            Email=data['email'])
+            dados = Professor(nome=data['nome'],
+            senha=data['senha'],
+            email=data['email'],
+            usuario=data['usuario'])
 
-            if Professor.objects.filter(Email=dados.Email).exists():
-                return JsonResponse({'error':'Email já cadastrado'},status=400)
+            if Professor.objects.filter(email=dados.email).exists():
+                return JsonResponse({'error': 'Email já cadastrado'}, status=400)
 
             dados.save()
 
@@ -83,7 +83,6 @@ def salvar_dados_Professor(request):
             return JsonResponse({'error': 'Método não permitido'}, status=405)
         
     except Exception as e:
-
         return JsonResponse({'error': str(e)}, status=500)
     
 @csrf_exempt
@@ -103,3 +102,4 @@ def listar_Alunos(request):
     except Exception as e:
         
         return JsonResponse({'error': str(e)},status=500)
+
