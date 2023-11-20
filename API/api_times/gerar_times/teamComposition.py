@@ -2,7 +2,6 @@ import random
 from gerar_times.models import Aluno
 from tabulate import tabulate as tb
 
-
 def gerar_time(tamanho):
     dados = Aluno.objects.all()
 
