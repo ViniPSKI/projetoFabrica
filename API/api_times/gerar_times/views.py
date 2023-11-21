@@ -2,10 +2,26 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from gerar_times.models import Aluno, Professor
-from gerar_times.teamComposition import gerar_time
+from gerar_times.teamComposition import executar_algoritmo
 
 @csrf_exempt
 def gerar_time_api(request, tamanho):
+    time = executar_algoritmo(int(tamanho))
+
+    timeGerado = [{
+        'Nome': Aluno.Nome,
+        'RA': Aluno.RA,
+        'Area_de_atuacao': Aluno.Area_de_atuacao,
+        'Nivel_de_senioridade': Aluno.Nivel_de_senioridade,
+        'Linguagem_Afinidade': Aluno.Linguagem_Afinidade
+    } for Aluno in time]
+
+    response_data = {'time': timeGerado}
+
+    return JsonResponse(response_data, safe=False)
+
+#@csrf_exempt
+#def gerar_time_api(request, tamanho):
     try:
 
         if request.method == 'GET':
