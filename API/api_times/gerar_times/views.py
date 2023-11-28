@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from gerar_times.models import Aluno, Professor
+from gerar_times.models import Aluno, Professor, Times
 from gerar_times.teamComposition import executar_algoritmo
 
 @csrf_exempt
@@ -113,6 +113,19 @@ def listar_Alunos(request):
             reponse_data = list(Alunos.values())
             
             #safe=False para corrigir o erro 'Object of type QuerySet is not JSON serializable'
+            return JsonResponse(reponse_data, safe=False)
+
+    except Exception as e:
+        
+        return JsonResponse({'error': str(e)},status=500)
+
+@csrf_exempt
+def listar_Times(request):
+    try:
+        
+        if request.method == 'GET':
+            times = Times.objects.all()
+            reponse_data = list(times.values())
             return JsonResponse(reponse_data, safe=False)
 
     except Exception as e:
