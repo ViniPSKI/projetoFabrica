@@ -24,7 +24,7 @@ class Aluno_com_time(models.Model):
     Linguagem_Afinidade = models.CharField(max_length=50)
     RA = models.CharField(max_length=9, unique=True)
     Periodo = models.CharField(max_length=2)
-    id = models.CharField(max_length=9, unique=True, primary_key=True)
+    id = models.AutoField(primary_key=True)
     Email = models.CharField(max_length=50)
 
     class Meta:
@@ -62,11 +62,13 @@ class Sala(models.Model):
 
 
 class Times(models.Model):
-    id = models.AutoField(primary_key=True)
-    fk_Salas = models.ForeignKey(Sala, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True) 
+    id_time = models.CharField(max_length=100)
+    id_aluno = models.CharField(max_length=100)
+    fk_salas = models.ForeignKey(Sala, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'times'
+        db_table = 'Times'
 
 
 # class Participa(models.Model):
@@ -77,9 +79,9 @@ class Times(models.Model):
 #         db_table = 'participa'
 
 
-class Contem(models.Model):
-    fk_Aluno_Id = models.ForeignKey(Aluno, on_delete=models.RESTRICT)
-    fk_Times_Id = models.ForeignKey(Times, on_delete=models.SET_NULL, null=True)
+#class Contem(models.Model):
+#    fk_Aluno_Id = models.ForeignKey(Aluno, on_delete=models.RESTRICT)
+#    fk_Times_Id = models.ForeignKey(Times, on_delete=models.SET_NULL, null=True)
 
-    class Meta:
-        db_table = 'contem'
+    #class Meta:
+       # db_table = 'contem'

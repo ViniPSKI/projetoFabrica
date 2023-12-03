@@ -30,8 +30,19 @@ def gerar_time_api(request, tamanho):
         RA=data[i]['RA'], Email=data[i]['Email'], 
         Periodo=data[i]['Periodo'], id=data[i]['id'])       
         dados.save()
-    return JsonResponse(response_data, safe=False)
+        aluno = Aluno.objects.get(id = data[i]['id'])
+        aluno.delete()
 
+    ultimo_time = Times.objects.latest('id_time')
+    id_times = ultimo_time.id_time
+    id_atual = id_times +1
+    print(id_atual)
+
+    for y in range (tamanho):
+        data1 = timeGerado
+        time_info = Times(id_time=id_atual, id_aluno=data1[y]['id'])
+        time_info.save()
+    return JsonResponse(response_data, safe=False)
 #@csrf_exempt
 #def gerar_time_api(request, tamanho):
 #    try:
@@ -112,9 +123,32 @@ def salvar_dados_Professor(request):
         
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-    
+
 @csrf_exempt
 def listar_Alunos(request):
+    try:
+        if request.method == 'GET':
+
+            AlunosST = Aluno.objects.all()
+            AlunosCT = Aluno_com_time.objects.all()
+
+            lista_final = []
+
+            listST = list(AlunosST.values())
+            AlunosCT = list(AlunosCT.values())
+
+            lista_final.append(listST)
+            lista_final.append(AlunosCT)
+
+            return JsonResponse(lista_final, safe=False)
+
+    except Exception as e:
+        
+        return JsonResponse({'error': str(e)},status=500)
+
+
+@csrf_exempt
+def listar_Alunos_semTime(request):
     try:
         
         if request.method == 'GET':
@@ -141,6 +175,30 @@ def listar_Times(request):
             return JsonResponse(reponse_data, safe=False)
 
     except Exception as e:
-        
         return JsonResponse({'error': str(e)},status=500)
 
+
+@csrf_exempt
+def listar_membros_Times(request, idt):
+    try:
+        
+        if request.method == 'GET':
+            times = Times.objects.filter(id_time=idt)
+            reponse_data = list(times.values())
+            print(reponse_data[0]['id_aluno'])
+            
+            resultados_finais = []
+
+            for X in range (5):
+                dados_aluno = Aluno_com_time.objects.filter(id=reponse_data[X]['id_aluno'])
+
+                resultado_final = list(dados_aluno.values())
+                #resultado_final = {'id_aluno': id_aluno, 'dados_aluno': list(dados_aluno)}
+                resultados_finais.append(resultado_final)
+
+            return JsonResponse(resultados_finais, safe=False)
+
+    except Exception as e:
+        
+
+        return JsonResponse({'error': str(e)},status=500)

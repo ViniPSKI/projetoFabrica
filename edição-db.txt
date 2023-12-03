@@ -1,0 +1,29 @@
+CREATE TABLE "Times" (
+    id INTEGER PRIMARY KEY,
+    id_time INTERGER,
+    id_aluno INTEGER,
+    fk_salas_id INTEGER
+);
+
+ALTER TABLE "Times" ADD CONSTRAINT fk_times_2
+    FOREIGN KEY (fk_salas_id)
+    REFERENCES salas (id)
+    ON DELETE CASCADE;
+
+    ALTER TABLE Times ALTER COLUMN id TYPE INTEGER;
+
+ALTER TABLE Aluno ALTER COLUMN id TYPE SERIAL;
+
+
+ALTER TABLE Aluno ADD PRIMARY KEY (id);
+
+CREATE TABLE "Aluno" (
+    id SERIAL PRIMARY KEY,
+    "RA" VARCHAR,
+    "Periodo" VARCHAR,
+    "Nivel_de_senioridade" VARCHAR,
+    "Email" VARCHAR,
+    "Area_de_atuacao" VARCHAR,
+    "Nome" VARCHAR,
+    "Linguagem_Afinidade" VARCHAR
+);
