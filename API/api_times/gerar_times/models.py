@@ -9,13 +9,39 @@ class Aluno(models.Model):
     Area_de_atuacao = models.CharField(max_length=30)
     Nivel_de_senioridade = models.CharField(max_length=10)
     Linguagem_Afinidade = models.CharField(max_length=50)
-    RA = models.CharField(max_length=9, unique=True)
+    id = models.CharField(max_length=9, unique=True, primary_key=True)
     Periodo = models.CharField(max_length=2)
     Email = models.CharField(max_length=50)
+    RA = models.CharField(max_length=50)
 
     class Meta:
         db_table = 'Aluno'
 
+class Aluno_com_time(models.Model):
+    Nome = models.CharField(max_length=150)
+    Area_de_atuacao = models.CharField(max_length=30)
+    Nivel_de_senioridade = models.CharField(max_length=10)
+    Linguagem_Afinidade = models.CharField(max_length=50)
+    RA = models.CharField(max_length=9, unique=True)
+    Periodo = models.CharField(max_length=2)
+    id = models.AutoField(primary_key=True)
+    Email = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = 'Aluno_com_time'
+
+class Aluno(models.Model):
+    Nome = models.CharField(max_length=150)
+    Area_de_atuacao = models.CharField(max_length=30)
+    Nivel_de_senioridade = models.CharField(max_length=10)
+    Linguagem_Afinidade = models.CharField(max_length=50)
+    id = models.CharField(max_length=9, unique=True, primary_key=True)
+    Periodo = models.CharField(max_length=2)
+    Email = models.CharField(max_length=50)
+    RA = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = 'Aluno'
 
 class Professor(models.Model):
     Email = models.CharField(max_length=50, unique=True)
@@ -25,7 +51,6 @@ class Professor(models.Model):
 
     class Meta:
         db_table = 'Professor'
-
 
 class Sala(models.Model):
     id = models.AutoField(primary_key=True)
@@ -37,11 +62,13 @@ class Sala(models.Model):
 
 
 class Times(models.Model):
-    id = models.AutoField(primary_key=True)
-    fk_Salas = models.ForeignKey(Sala, on_delete=models.CASCADE)
+    id = models.AutoField(primary_key=True) 
+    id_time = models.CharField(max_length=100)
+    id_aluno = models.CharField(max_length=100)
+    fk_salas = models.ForeignKey(Sala, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'times'
+        db_table = 'Times'
 
 
 # class Participa(models.Model):
@@ -52,9 +79,9 @@ class Times(models.Model):
 #         db_table = 'participa'
 
 
-class Contem(models.Model):
-    fk_Aluno_Id = models.ForeignKey(Aluno, on_delete=models.RESTRICT)
-    fk_Times_Id = models.ForeignKey(Times, on_delete=models.SET_NULL, null=True)
+#class Contem(models.Model):
+#    fk_Aluno_Id = models.ForeignKey(Aluno, on_delete=models.RESTRICT)
+#    fk_Times_Id = models.ForeignKey(Times, on_delete=models.SET_NULL, null=True)
 
-    class Meta:
-        db_table = 'contem'
+    #class Meta:
+       # db_table = 'contem'
