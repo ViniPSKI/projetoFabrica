@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from gerar_times.models import Aluno, Professor, Times
+from gerar_times.models import Aluno, Professor, Times, Aluno_com_time
 from gerar_times.teamComposition import executar_algoritmo
 
 @csrf_exempt
@@ -10,39 +10,51 @@ def gerar_time_api(request, tamanho):
 
     timeGerado = [{
         'Nome': Aluno.Nome,
-        'RA': Aluno.RA,
+        'id': Aluno.id,
         'Area_de_atuacao': Aluno.Area_de_atuacao,
         'Nivel_de_senioridade': Aluno.Nivel_de_senioridade,
-        'Linguagem_Afinidade': Aluno.Linguagem_Afinidade
+        'Linguagem_Afinidade': Aluno.Linguagem_Afinidade,
+        'RA': Aluno.RA,
+        'Email': Aluno.Email,
+        'Periodo': Aluno.Periodo
     } for Aluno in time]
 
     response_data = {'time': timeGerado}
 
+    for i in range(tamanho):
+        data = timeGerado
+        dados = Aluno_com_time(Nome=data[i]['Nome'], 
+        Area_de_atuacao=data[i]['Area_de_atuacao'], 
+        Nivel_de_senioridade=data[i]['Nivel_de_senioridade'], 
+        Linguagem_Afinidade=data[i]['Linguagem_Afinidade'], 
+        RA=data[i]['RA'], Email=data[i]['Email'], 
+        Periodo=data[i]['Periodo'], id=data[i]['id'])       
+        dados.save()
     return JsonResponse(response_data, safe=False)
 
 #@csrf_exempt
 #def gerar_time_api(request, tamanho):
-    try:
-
-        if request.method == 'GET':
-
-            time = gerar_time(int(tamanho))
-
-            timeGerado = [{
-                'Nome': Aluno.Nome,
-                'RA': Aluno.RA,
-                'Area_de_atuacao': Aluno.Area_de_atuacao,
-                'Nivel_de_senioridade': Aluno.Nivel_de_senioridade,
-                'Linguagem_Afinidade': Aluno.Linguagem_Afinidade
-            } for Aluno in time]
-
-            response_data = {'time': timeGerado}
-
-            return JsonResponse(response_data, safe=False)
-        
-    except Exception as e:
-
-        return JsonResponse({'error': str(e)}, status=500)
+#    try:
+#
+#        if request.method == 'GET':
+#
+#            time = gerar_time(int(tamanho))
+#
+#            timeGerado = [{
+#                'Nome': Aluno.Nome,
+#                'RA': Aluno.RA,
+#                'Area_de_atuacao': Aluno.Area_de_atuacao,
+#                'Nivel_de_senioridade': Aluno.Nivel_de_senioridade,
+#                'Linguagem_Afinidade': Aluno.Linguagem_Afinidade
+#            } for Aluno in time]
+#
+#            response_data = {'time': timeGerado}
+#
+#            return JsonResponse(response_data, safe=False)
+#        
+#    except Exception as e:
+#
+#        return JsonResponse({'error': str(e)}, status=500)
     
 @csrf_exempt
 def salvar_dados_Aluno(request):
