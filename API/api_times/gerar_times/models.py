@@ -30,18 +30,18 @@ class Aluno_com_time(models.Model):
     class Meta:
         db_table = 'Aluno_com_time'
 
-class Aluno(models.Model):
-    Nome = models.CharField(max_length=150)
-    Area_de_atuacao = models.CharField(max_length=30)
-    Nivel_de_senioridade = models.CharField(max_length=10)
-    Linguagem_Afinidade = models.CharField(max_length=50)
-    id = models.CharField(max_length=9, unique=True, primary_key=True)
-    Periodo = models.CharField(max_length=2)
-    Email = models.CharField(max_length=50)
-    RA = models.CharField(max_length=50)
+# class Aluno(models.Model):
+#     Nome = models.CharField(max_length=150)
+#     Area_de_atuacao = models.CharField(max_length=30)
+#     Nivel_de_senioridade = models.CharField(max_length=10)
+#     Linguagem_Afinidade = models.CharField(max_length=50)
+#     id = models.CharField(max_length=9, unique=True, primary_key=True)
+#     Periodo = models.CharField(max_length=2)
+#     Email = models.CharField(max_length=50)
+#     RA = models.CharField(max_length=50)
 
-    class Meta:
-        db_table = 'Aluno'
+#     class Meta:
+#         db_table = 'Aluno'
 
 class Professor(models.Model):
     Email = models.CharField(max_length=50, unique=True)
