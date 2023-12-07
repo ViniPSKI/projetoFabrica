@@ -99,18 +99,17 @@ def salvar_dados_Aluno(request):
 
 @csrf_exempt   
 def salvar_dados_Professor(request):
-
     try:
         if request.method == 'POST':
 
             data = json.loads(request.body)
 
-            dados = Professor(nome=data['nome'],
-            senha=data['senha'],
-            email=data['email'],
-            usuario=data['usuario'])
+            dados = Professor(Nome=data['nome'],
+            Senha=data['senha'],
+            Email=data['email'],
+            Usuario=data['usuario'])
 
-            if Professor.objects.filter(email=dados.email).exists():
+            if Professor.objects.filter(Email=dados.Email).exists():
                 return JsonResponse({'error': 'Email já cadastrado'}, status=400)
 
             dados.save()
